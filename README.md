@@ -1,6 +1,6 @@
 # Docker Compose Configuration
 
-This repository contains a `docker-compose.yml` file for setting up a multi-service development environment. Below are the details of each service included in the configuration.
+This repository contains a Docker Compose project for setting up a multi-service development environment. Below are the details of each service included in the configuration.
 
 ## Services
 
