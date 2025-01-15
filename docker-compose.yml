@@ -1,0 +1,61 @@
+services:
+    db:
+        image: mariadb:latest
+        ports:
+            - 3306
+        volumes:
+            - ./mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: 'root'
+            MYSQL_DATABASE: $DB
+            MYSQL_USER: $DBUSER
+            MYSQL_PASSWORD: $DBPASS
+    web:
+        build: ./docker/nginx
+        ports:
+            - 80:80
+        volumes:
+            - ./src:/var/www/html
+            - ./logs:/var/www/logs
+        links:
+            - php
+            - db
+            - node
+    php:
+        build: ./docker/php
+        # ports:
+        #     - 443:443
+        #     - 80:80
+        volumes:
+            - ./src:/var/www/html
+            - ./logs:/var/www/logs
+        links:
+            - db
+        environment:
+            HISTFILE: /var/www/html/docker/.bash_history
+            COMPOSER_HOME: /var/www/html/docker/composer
+        networks:
+            default:
+                aliases:
+                    - $$ALIAS
+    node:
+        image: node:latest
+        ports:
+            - 5173:5173
+        volumes:
+            - ./src:/var/www/html
+        working_dir: /var/www/html
+        command: bash -c "tail -f > /dev/null"
+
+    adminer:
+        image: clue/adminer
+        environment:
+            - VIRTUAL_HOST=dh.adminer
+        ports:
+            - 8056:80
+        links:
+            - db:mysql
+
+    # mail:
+    #     image: bytemark/smtp
+    #     restart: always
