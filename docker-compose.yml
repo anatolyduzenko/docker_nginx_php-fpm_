@@ -34,6 +34,8 @@ services:
         environment:
             HISTFILE: /var/www/html/docker/.bash_history
             COMPOSER_HOME: /var/www/html/docker/composer
+        cap_add:
+          - SYS_PTRACE
         networks:
             default:
                 aliases:

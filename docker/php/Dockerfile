@@ -5,6 +5,8 @@ RUN apt-get update \
         mc git \
         libzip-dev \
         zip \
+        strace \
+        htop \
     && docker-php-ext-install pdo pdo_mysql mysqli zip \
     && docker-php-ext-enable mysqli zip
 COPY docker.conf /usr/local/etc/php-fpm.d/docker.conf
