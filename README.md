@@ -1,6 +1,7 @@
 # Docker Compose Configuration
 
 This repository contains a Docker Compose project for setting up a multi-service development environment. Below are the details of each service included in the configuration.
+MariaDB database will be stored in the "MySQL" folder. All logs (PHP-FPM and Nginx) are in the "logs" folder. **Make sure to set correct permissions to them.*
 
 ## Services
 
